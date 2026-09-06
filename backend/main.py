@@ -55,6 +55,12 @@ def load_local_env() -> None:
 
 load_local_env()
 DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{ROOT / 'pharmacy.db'}")
+# Render commonly provides a generic PostgreSQL URL. Explicitly select the
+# installed Psycopg 3 driver so SQLAlchemy does not fall back to psycopg2.
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = "postgresql+psycopg://" + DATABASE_URL[len("postgres://"):]
+elif DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = "postgresql+psycopg://" + DATABASE_URL[len("postgresql://"):]
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
 GROQ_VISION_MODEL = os.getenv("GROQ_VISION_MODEL", "qwen/qwen3.6-27b")
 GROQ_API_URL = os.getenv("GROQ_API_URL", "https://api.groq.com/openai/v1/chat/completions")
