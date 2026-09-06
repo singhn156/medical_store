@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520">
+  <rect width="900" height="520" fill="#e9edf1"/><rect x="80" y="80" width="740" height="360" rx="22" fill="#fff" stroke="#aeb9c5" stroke-width="3"/>
+  <path d="M80 150h740v90H80z" fill="#ed2939"/><text x="125" y="215" font-family="Arial" font-size="66" font-weight="700" fill="#fff">PAN 40</text>
+  <text x="125" y="285" font-family="Arial" font-size="25" fill="#26384d">Pantoprazole Tablets IP 40 mg</text>
+  <text x="125" y="335" font-family="monospace" font-size="24" font-weight="700" fill="#17283b">BATCH: PN9826</text>
+  <text x="125" y="375" font-family="monospace" font-size="24" font-weight="700" fill="#17283b">MFG: AUG 2026   EXP: FEB 2028</text>
+  <text x="125" y="410" font-family="Arial" font-size="17" fill="#5e6d7c">Synthetic demo medicine pack · not for sale</text>
+</svg>

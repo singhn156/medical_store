@@ -1,0 +1,24 @@
+.line-input,
+.line-select {
+  min-width: 92px;
+  max-width: 160px;
+  border: 1px solid #dbe3ec;
+  border-radius: 7px;
+  padding: 8px;
+  background: #fff;
+  color: var(--ink);
+}
+
+.line-select { min-width: 210px; }
+.line-input.number { width: 84px; }
+.line-input.date { width: 140px; }
+
+.line-input.invalid,
+.line-select.invalid {
+  border-color: #df4b5b;
+  background: #fff5f6;
+}
+
+.review-row { background: #fffaf2; }
+.review-row:hover { background: #fff7e9; }
+.danger-text { color: var(--red) !important; }

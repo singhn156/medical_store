@@ -1,0 +1,28 @@
+# Render service configuration for DoseDeck
+# Edit the branch, plan, and DATABASE_URL as needed before deploying.
+services:
+  - type: web
+    name: dosedeck-web
+    env: python
+    plan: free
+    branch: main
+    buildCommand: pip install --no-cache-dir -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: AI_MODE
+        value: "mock"
+      - key: DEMO_MODE
+        value: "true"
+      - key: PRESENTATION_MODE
+        value: "true"
+      # For production, set DATABASE_URL to a managed Postgres connection string
+      - key: DATABASE_URL
+        value: "postgres://<user>:<pass>@<host>:5432/<db>"
+    autoDeploy: true
+
+databases:
+  - name: dosedeck-db
+    plan: starter
+    # Render will create a Postgres instance named 'dosedeck-db'.
+    # Replace DATABASE_URL above with the connection string from Render's dashboard,
+    # or set the DATABASE_URL env var in the Web Service to use the created database.
