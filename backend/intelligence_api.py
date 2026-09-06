@@ -111,13 +111,13 @@ def dashboard(db: Session = Depends(get_db)):
     inventory_value = db.scalar(select(func.coalesce(func.sum(
         InventoryBatch.quantity_available * InventoryBatch.purchase_price), 0))) or 0
     today_sales = db.scalar(select(func.coalesce(func.sum(Sale.total), 0)).where(
-        func.date(Sale.created_at) == today.isoformat())) or 0
+        func.date(Sale.created_at) == today)) or 0
     stockouts = stockout_rows(db); reorders = reorder_rows(db); expiries = expiry_rows(db)
     series = []
     for offset in range(29, -1, -1):
         day = today - timedelta(days=offset)
         value = db.scalar(select(func.coalesce(func.sum(Sale.total), 0)).where(
-            func.date(Sale.created_at) == day.isoformat())) or 0
+            func.date(Sale.created_at) == day)) or 0
         series.append({"date": day.isoformat(), "value": float(value)})
     products = db.scalars(select(Product).where(Product.active.is_(True))).all()
     top = sorted([{"name": p.medicine_name, "units": round(predicted_daily_demand(p.medicine_name) * 30)}
@@ -289,7 +289,7 @@ def analytics(days: int = 30, db: Session = Depends(get_db)):
     for offset in range(days-1, -1, -1):
         day = today - timedelta(days=offset)
         sales_value = db.scalar(select(func.coalesce(func.sum(Sale.total), 0)).where(
-            func.date(Sale.created_at) == day.isoformat())) or 0
+            func.date(Sale.created_at) == day)) or 0
         series.append({"date": day.isoformat(), "sales": float(sales_value),
                        "gross_margin": round(float(sales_value) * .267, 2)})
     recs = db.scalars(select(AIRecommendation)).all()
