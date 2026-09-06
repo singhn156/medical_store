@@ -5,7 +5,7 @@ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const money=v=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(Number(v||0));
 const fmtDate=v=>v?new Date(v+'T00:00:00').toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}):'—';
 const toast=msg=>{const el=$('#toast');el.textContent=msg;el.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove('show'),3200)};
-async function api(path,options={}){const r=await fetch(path,options);let body={};try{body=await r.json()}catch{body={detail:await r.text()}}if(!r.ok)throw Error(body.detail||'Something went wrong');return body}
+async function api(path,options={}){const r=await fetch(path,options);const raw=await r.text();let body={};try{body=raw?JSON.parse(raw):{}}catch{body={detail:raw||'Invalid server response'}}if(!r.ok)throw Error(body.detail||'Something went wrong');return body}
 function statusPill(value){return `<span class="status-pill ${esc(value)}">${esc(value)}</span>`}
 function openDetail(title,body,eyebrow='EXPLAINABILITY'){$('#detailTitle').textContent=title;$('#detailEyebrow').textContent=eyebrow;$('#detailBody').innerHTML=body;$('#detailDialog').showModal()}
 
